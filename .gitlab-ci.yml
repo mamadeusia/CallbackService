@@ -1,0 +1,21 @@
+image: docker:stable
+default:
+  tags:
+    - corepass
+
+stages:
+  - build
+  - release
+  - analyze
+  - deploy
+
+variables:
+  HELM_VERSION: "v3.10.3"
+  YQ_VERSION: "v4.30.6"
+  VAULT_VERSION: "1.12.2"
+
+include:
+  - local: .devops/workflows/release.yaml
+  - local: .devops/workflows/buildDockerImage.yaml
+  - local: .devops/workflows/sonarqube.yaml
+  # - local: .devops/workflows/deployApplication.yaml
