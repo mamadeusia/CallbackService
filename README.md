@@ -1,8 +1,7 @@
 # SIMPLE CALLBACK SERVICE
+This service is tasked with periodically calling the webhook of other services.
 
-this service is responsible for call the webhook of other services periodically.
-
-if other service be down, we will try to call them in different time frames.
+In the event that these services are unavailable, we will attempt to call them at various intervals.
 
 ![operation](./operaion.png)
 
