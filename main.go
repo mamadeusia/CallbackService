@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/go-micro/plugins/v4/events/natsjs"
+	"github.com/nats-io/nats.go"
 
 	"github.com/mamadeusia/CallbackService/config"
 	"github.com/mamadeusia/CallbackService/entity"
@@ -47,6 +48,7 @@ func main() {
 
 	var natsjsConfigOptions []natsjs.Option
 	natsjsConfigOptions = append(natsjsConfigOptions, natsjs.Address(config.NatsURL()))
+	natsjsConfigOptions = append(natsjsConfigOptions, natsjs.WithStreamRetentionPolicy("CALLBACKS", nats.WorkQueuePolicy))
 
 	if config.NatsNkey() != "" {
 		natsjsConfigOptions = append(natsjsConfigOptions, natsjs.NkeyConfig(config.NatsNkey()))
@@ -80,7 +82,7 @@ func main() {
 	}
 
 	stream.Publish("CALLBACKS.10Second", entity.CallBackData{
-		Url:  "https://webhook.site/77c3a62c-d416-425a-8817-8d46194f8a44",
+		Url:  "https://webhook.site/e8c565ba-7da3-4f5b-bf7a-43f98bfc8c99",
 		Data: []byte("First Message"),
 	})
 
